@@ -12,7 +12,6 @@
     <main class="booking-container">
         <header class="booking-header">
             <div class="logo-container">
-                <!-- Caminho atualizado para Logo.jpg conforme sua orientação -->
                 <img src="assets/imagem/Logo.jpg" alt="Dra. Taiane Freitas Advocacia" class="lawyer-logo">
             </div>
             <h2>Agendamento de Consulta Presencial</h2>
@@ -22,7 +21,7 @@
         <form id="form-agendamento" onsubmit="event.preventDefault(); enviarParaWhatsApp();">
             
             <section class="form-section">
-                <h3>1. Selecione a Área de Atuação</h3>
+                <h3>1. Selecione a Área de Interesse</h3>
                 <div class="area-grid">
                     <label class="area-card">
                         <input type="radio" name="area" value="Direito Civil e Família" required>
@@ -44,7 +43,8 @@
                 
                 <div class="date-picker-wrapper">
                     <label for="data-consulta">Selecione o Dia:</label>
-                    <input type="date" id="data-consulta" required min="2026-06-29">
+                    <!-- Linha corrigida sem o "min" fixo -->
+                    <input type="date" id="data-consulta" required>
                 </div>
 
                 <div class="time-grid">
@@ -102,5 +102,3 @@
     <script src="assets/js/main.js"></script>
 </body>
 </html>
-<!-- Mude de <input type="date" id="data-consulta" required min="2026-06-29"> para: -->
-<input type="date" id="data-consulta" required>
