@@ -34,5 +34,16 @@ function enviarParaWhatsApp() {
                           `• *Horário:* ${horario}h%0A` +
                           `• *Assunto desejado:* ${assunto}`;
 
+    // ... (código anterior que monta o textoMensagem)
+    
     window.open(`https://wa.me/${numeroEscritorio}?text=${textoMensagem}`, '_blank');
 }
+
+// O número do escritório está aqui (55 + DDD + seu número)
+const numeroEscritorio = "5521964432126"; 
+
+// Aqui montamos a URL do WhatsApp
+const urlWhatsApp = `https://wa.me/${numeroEscritorio}?text=${textoMensagem}`;
+
+// E aqui o comando que abre o WhatsApp em uma nova aba
+window.open(urlWhatsApp, '_blank');
