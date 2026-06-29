@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento de Consulta | Escritório de Advocacia</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="booking-container">
+        <header class="booking-header">
+            <h2>Agendamento de Consulta Presencial</h2>
+            <p>Selecione a área de interesse, escolha o melhor horário e confirme pelo WhatsApp.</p>
+        </header>
+
+        <form id="form-agendamento" onsubmit="event.preventDefault(); enviarParaWhatsApp();">
+            
+            <section class="form-section">
+                <h3>1. Selecione a Área de Atuação</h3>
+                <div class="area-grid">
+                    <label class="area-card">
+                        <input type="radio" name="area" value="Direito Civil e Família" required>
+                        <span>Direito Civil e Família</span>
+                    </label>
+                    <label class="area-card">
+                        <input type="radio" name="area" value="Direito do Trabalho">
+                        <span>Direito do Trabalho</span>
+                    </label>
+                    <label class="area-card">
+                        <input type="radio" name="area" value="Direito Empresarial">
+                        <span>Direito Empresarial</span>
+                    </label>
+                    <label class="area-card">
+                        <input type="radio" name="area" value="Consulta Geral">
+                        <span>Consulta Geral / Outros</span>
+                    </label>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h3>2. Escolha o Horário Disponível</h3>
+                
+                <div class="date-picker-wrapper">
+                    <label for="data-consulta">Selecione o Dia:</label>
+                    <input type="date" id="data-consulta" required min="2026-06-29">
+                </div>
+
+                <div class="time-grid">
+                    <label class="time-slot">
+                        <input type="radio" name="horario" value="09:00" required>
+                        <span>09:00</span>
+                    </label>
+                    <label class="time-slot">
+                        <input type="radio" name="horario" value="10:00">
+                        <span>10:00</span>
+                    </label>
+                    <label class="time-slot">
+                        <input type="radio" name="horario" value="11:00">
+                        <span>11:00</span>
+                    </label>
+                    <label class="time-slot">
+                        <input type="radio" name="horario" value="14:00">
+                        <span>14:00</span>
+                    </label>
+                    <label class="time-slot">
+                        <input type="radio" name="horario" value="15:00">
+                        <span>15:00</span>
+                    </label>
+                    <label class="time-slot">
+                        <input type="radio" name="horario" value="16:00">
+                        <span>16:00</span>
+                    </label>
+                    <label class="time-slot">
+                        <input type="radio" name="horario" value="17:00">
+                        <span>17:00</span>
+                    </label>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h3>3. Seus Dados</h3>
+                <div class="input-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="assunto">Resumo do Assunto <span class="optional">(Opcional)</span></label>
+                    <textarea id="assunto" rows="3" placeholder="Se desejar, descreva brevemente o seu caso..."></textarea>
+                    <small class="privacy-note">🔒 Garantimos total sigilo sobre as informações compartilhadas.</small>
+                </div>
+            </section>
+
+            <button type="submit" class="btn-submit">
+                Confirmar Agendamento no WhatsApp
+            </button>
+        </form>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
