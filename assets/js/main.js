@@ -1,33 +1,35 @@
 // Define a data mínima como hoje, garantindo que o ano seja sempre o atual
 document.addEventListener("DOMContentLoaded", function() {
-    const dataInput = document.getElementById('data-consulta');
-    if (dataInput) {
-        const hoje = new Date().toISOString().split('T')[0];
-        dataInput.setAttribute('min', hoje);
+    // Insere o ano atual automaticamente no span com id="ano-atual"
+    const elementoAno = document.getElementById('ano-atual');
+    if (elementoAno) {
+        elementoAno.textContent = new Date().getFullYear();
     }
 });
 
 function enviarParaWhatsApp() {
-    // Coleta os valores dos campos
+    // Coleta os valores dos campos separados
     const nome = document.getElementById('nome').value;
+    const dia = document.getElementById('dia').value;
+    const mes = document.getElementById('mes').value;
+    const ano = document.getElementById('ano-atual').textContent; // Pega o ano do span
     const assunto = document.getElementById('assunto').value || "Não informado";
-    const dataInput = document.getElementById('data-consulta').value;
     
     const areaSelecionada = document.querySelector('input[name="area"]:checked');
     const horarioSelecionado = document.querySelector('input[name="horario"]:checked');
 
     // Validação obrigatória
-    if (!nome || !areaSelecionada || !horarioSelecionado || !dataInput) {
-        alert("Por favor, preencha todos os campos obrigatórios (Nome, Área, Data e Horário) antes de confirmar.");
+    // Nota: Verificamos se dia e mês foram preenchidos
+    if (!nome || !areaSelecionada || !horarioSelecionado || !dia || !mes) {
+        alert("Por favor, preencha todos os campos obrigatórios (Nome, Área, Dia, Mês e Horário) antes de confirmar.");
         return;
     }
 
     // Processamento dos dados
     const area = areaSelecionada.value;
     const horario = horarioSelecionado.value;
-
-    // Converte a data de aaaa-mm-dd para dd/mm/aaaa
-    const [ano, mes, dia] = dataInput.split('-');
+    
+    // Converte a data para dd/mm/aaaa usando o ano fixo do span
     const dataFormatada = `${dia}/${mes}/${ano}`;
 
     // Número do escritório (Dr. Taiane Freitas)
