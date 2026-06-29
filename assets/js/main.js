@@ -33,3 +33,10 @@ function enviarParaWhatsApp() {
     const urlWhatsApp = `https://wa.me/${numeroEscritorio}?text=${textoMensagem}`;
     window.open(urlWhatsApp, '_blank');
 }
+
+// Define a data mínima como hoje, garantindo que o ano seja sempre o atual
+document.addEventListener("DOMContentLoaded", function() {
+    const dataInput = document.getElementById('data-consulta');
+    const hoje = new Date().toISOString().split('T')[0];
+    dataInput.setAttribute('min', hoje);
+});
