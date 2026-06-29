@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendamento de Consulta | Escritório de Advocacia</title>
-    <!-- Ajustado para a sua pasta 'ativos' -->
+    <title>Agendamento de Consulta | Dra. Taiane Freitas</title>
+    <!-- CORRIGIDO: Apontando para a sua pasta 'ativos' -->
     <link rel="stylesheet" href="ativos/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -12,12 +12,17 @@
 
     <main class="booking-container">
         <header class="booking-header">
+            <!-- Espaço para a Arte/Logo da Advogada -->
+            <div class="logo-container">
+                <img src="ativos/logo.png" alt="Dra. Taiane Freitas Advocacia" class="lawyer-logo">
+            </div>
             <h2>Agendamento de Consulta Presencial</h2>
             <p>Selecione a área de interesse, escolha o melhor horário e confirme pelo WhatsApp.</p>
         </header>
 
         <form id="form-agendamento" onsubmit="event.preventDefault(); enviarParaWhatsApp();">
             
+            <!-- 1. SELEÇÃO DE ÁREA (Direito Empresarial removido) -->
             <section class="form-section">
                 <h3>1. Selecione a Área de Atuação</h3>
                 <div class="area-grid">
@@ -36,12 +41,12 @@
                 </div>
             </section>
 
+            <!-- 2. DATA E GRADE DE HORÁRIOS -->
             <section class="form-section">
                 <h3>2. Escolha o Horário Disponível</h3>
                 
                 <div class="date-picker-wrapper">
                     <label for="data-consulta">Selecione o Dia:</label>
-                    <!-- Atualizado com a data de hoje -->
                     <input type="date" id="data-consulta" required min="2026-06-29">
                 </div>
 
@@ -77,6 +82,7 @@
                 </div>
             </section>
 
+            <!-- 3. IDENTIFICAÇÃO -->
             <section class="form-section">
                 <h3>3. Seus Dados</h3>
                 <div class="input-group">
@@ -97,7 +103,7 @@
         </form>
     </main>
 
-    <!-- Ajustado para a sua pasta 'ativos' -->
+    <!-- CORRIGIDO: Apontando para a sua pasta 'ativos' -->
     <script src="ativos/js/main.js"></script>
 </body>
 </html>
