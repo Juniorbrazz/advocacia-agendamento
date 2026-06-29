@@ -192,3 +192,11 @@ body {
     .booking-header h2 { font-size: 1.4rem; }
     .lawyer-logo { max-width: 220px; }
 }
+footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #E2E8F0;
+    text-align: center;
+    color: #718096;
+    font-size: 0.85rem;
+}
