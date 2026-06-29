@@ -156,3 +156,15 @@ body {
     .time-grid { grid-template-columns: repeat(2, 1fr); }
     .booking-container { padding: 20px; }
 }
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.lawyer-logo {
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
