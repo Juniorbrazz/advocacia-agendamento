@@ -39,53 +39,27 @@
             </section>
 
             <section class="form-section">
-    <h3>2. Escolha o Horário Disponível</h3>
-    
-    <div class="date-picker-wrapper">
-        <label>Selecione a Data:</label>
-        <div style="display: flex; gap: 5px; align-items: center;">
-            <input type="number" id="dia" placeholder="dd" min="1" max="31" style="width: 60px;">
-            <span>/</span>
-            <input type="number" id="mes" placeholder="mm" min="1" max="12" style="width: 60px;">
-            <span>/</span>
-            <span id="ano-atual" style="font-weight: bold;"></span> <!-- O ano aparecerá aqui -->
-        </div>
-    </div>
-    <!-- (Mantenha o resto do seu grid de horários aqui embaixo) -->
+                <h3>2. Escolha o Horário Disponível</h3>
                 
-                    <!-- Linha corrigida sem o "min" fixo -->
-                    <input type="date" id="data-consulta" required>
+                <div class="date-picker-wrapper">
+                    <label>Data da Consulta (dd/mm/aaaa):</label>
+                    <div style="display: flex; gap: 5px; align-items: center; margin-top: 10px;">
+                        <input type="number" id="dia" placeholder="dd" min="1" max="31" required style="padding: 10px; width: 60px; border: 1px solid #E2E8F0; border-radius: 8px;">
+                        <span>/</span>
+                        <input type="number" id="mes" placeholder="mm" min="1" max="12" required style="padding: 10px; width: 60px; border: 1px solid #E2E8F0; border-radius: 8px;">
+                        <span>/</span>
+                        <span id="ano-atual" style="font-weight: bold; font-size: 1.1rem;"></span>
+                    </div>
                 </div>
 
-                <div class="time-grid">
-                    <label class="time-slot">
-                        <input type="radio" name="horario" value="09:00" required>
-                        <span>09:00</span>
-                    </label>
-                    <label class="time-slot">
-                        <input type="radio" name="horario" value="10:00">
-                        <span>10:00</span>
-                    </label>
-                    <label class="time-slot">
-                        <input type="radio" name="horario" value="11:00">
-                        <span>11:00</span>
-                    </label>
-                    <label class="time-slot">
-                        <input type="radio" name="horario" value="14:00">
-                        <span>14:00</span>
-                    </label>
-                    <label class="time-slot">
-                        <input type="radio" name="horario" value="15:00">
-                        <span>15:00</span>
-                    </label>
-                    <label class="time-slot">
-                        <input type="radio" name="horario" value="16:00">
-                        <span>16:00</span>
-                    </label>
-                    <label class="time-slot">
-                        <input type="radio" name="horario" value="17:00">
-                        <span>17:00</span>
-                    </label>
+                <div class="time-grid" style="margin-top: 20px;">
+                    <label class="time-slot"><input type="radio" name="horario" value="09:00" required><span>09:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="10:00"><span>10:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="11:00"><span>11:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="14:00"><span>14:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="15:00"><span>15:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="16:00"><span>16:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="17:00"><span>17:00</span></label>
                 </div>
             </section>
 
