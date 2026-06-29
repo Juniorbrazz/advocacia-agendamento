@@ -1,9 +1,9 @@
 /* Paleta baseada na identidade visual da Dra. Taiane Freitas */
 :root {
-    --primary-color: #2D0B14;    /* O vermelho-escuro/bordô da logo */
+    --primary-color: #2D0B14;    /* O vermelho-escuro/bordô exato da logo */
     --accent-color: #E2C9A1;     /* O dourado elegante das letras */
-    --bg-color: #F4F0EB;         /* Um fundo off-white levemente aquecido */
-    --card-bg: #FFFFFF;          /* Blocos em branco puro para contraste */
+    --bg-color: #2D0B14;         /* Fundo da página na cor da marca para envelopar o site */
+    --card-bg: #FFFFFF;          /* Bloco do formulário em branco para excelente leitura */
     --text-main: #2D0B14;        /* Texto principal no tom da marca */
     --text-muted: #70585E;       /* Texto secundário suave */
 }
@@ -33,26 +33,29 @@ body {
     width: 100%;
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(45, 11, 20, 0.08);
-    border: 1px solid rgba(226, 201, 161, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--accent-color); /* Borda dourada sutil */
 }
 
 /* Área da Logomarca */
 .logo-container {
     text-align: center;
     margin-bottom: 25px;
+    background-color: var(--primary-color); /* Fundo escuro atrás da logo para dar contraste */
+    padding: 15px;
+    border-radius: 8px;
 }
 
 .lawyer-logo {
     max-width: 280px;
     width: 100%;
     height: auto;
-    border-radius: 8px;
 }
 
 .booking-header h2 {
     font-family: 'Lora', serif;
     color: var(--primary-color);
+    margin-top: 20px;
     margin-bottom: 10px;
     font-size: 1.6rem;
     text-align: center;
@@ -76,7 +79,7 @@ body {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-bottom: 1px solid rgba(226, 201, 161, 0.4);
+    border-bottom: 1px solid rgba(226, 201, 161, 0.6);
     padding-bottom: 5px;
 }
 
@@ -181,7 +184,7 @@ body {
     transform: translateY(-1px);
 }
 
-/* Responsividade Perfeita: Celulares */
+/* Responsividade de Alto Nível (Computadores e Celulares) */
 @media (max-width: 500px) {
     body { padding: 15px 10px; }
     .booking-container { padding: 25px 15px; border-radius: 12px; }
