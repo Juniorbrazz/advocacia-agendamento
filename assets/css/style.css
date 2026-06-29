@@ -1,11 +1,11 @@
-/* Configurações Globais e Paleta de Cores */
+/* Paleta baseada na identidade visual da Dra. Taiane Freitas */
 :root {
-    --primary-color: #0A192F;    /* Azul-marinho corporativo */
-    --accent-color: #C5A880;     /* Dourado/Bronze elegante */
-    --bg-color: #F8F9FA;         /* Fundo off-white suave */
-    --card-bg: #FFFFFF;          /* Fundo dos blocos */
-    --text-main: #212529;        /* Texto principal escuro */
-    --text-muted: #6C757D;       /* Textos secundários */
+    --primary-color: #2D0B14;    /* O vermelho-escuro/bordô da logo */
+    --accent-color: #E2C9A1;     /* O dourado elegante das letras */
+    --bg-color: #F4F0EB;         /* Um fundo off-white levemente aquecido */
+    --card-bg: #FFFFFF;          /* Blocos em branco puro para contraste */
+    --text-main: #2D0B14;        /* Texto principal no tom da marca */
+    --text-muted: #70585E;       /* Texto secundário suave */
 }
 
 * {
@@ -21,29 +21,48 @@ body {
     color: var(--text-main);
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     padding: 40px 20px;
 }
 
 /* Container do Formulário */
 .booking-container {
     background: var(--card-bg);
-    max-width: 650px;
+    max-width: 600px;
     width: 100%;
     padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(45, 11, 20, 0.08);
+    border: 1px solid rgba(226, 201, 161, 0.3);
+}
+
+/* Área da Logomarca */
+.logo-container {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.lawyer-logo {
+    max-width: 280px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
 }
 
 .booking-header h2 {
     font-family: 'Lora', serif;
     color: var(--primary-color);
     margin-bottom: 10px;
+    font-size: 1.6rem;
+    text-align: center;
 }
 
 .booking-header p {
     color: var(--text-muted);
     font-size: 0.95rem;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
+    text-align: center;
 }
 
 .form-section {
@@ -51,35 +70,40 @@ body {
 }
 
 .form-section h3 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--primary-color);
     margin-bottom: 15px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(226, 201, 161, 0.4);
+    padding-bottom: 5px;
 }
 
 /* Grid de Áreas de Atuação */
 .area-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 12px;
 }
 
 .area-card input, .time-slot input {
-    display: none; /* Esconde o radio button original redondo */
+    display: none;
 }
 
 .area-card span {
     display: block;
-    padding: 15px;
+    padding: 16px;
     border: 1px solid #E2E8F0;
     border-radius: 8px;
-    text-align: center;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    background-color: #FCFBFA;
 }
 
-/* Grade de Horários Inteligente (Inspirada na sua imagem) */
+/* Grade de Horários */
 .time-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -91,23 +115,25 @@ body {
     display: block;
     padding: 12px 5px;
     border: 1px solid #E2E8F0;
-    border-radius: 6px;
+    border-radius: 8px;
     text-align: center;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.95rem;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
+    background-color: #FCFBFA;
 }
 
-/* Efeito de Seleção (Quando clicado vira azul e destaca) */
+/* Efeito de Seleção - Cores da Marca */
 .area-card input:checked + span, 
 .time-slot input:checked + span {
     background-color: var(--primary-color);
-    color: #FFFFFF;
+    color: var(--accent-color);
     border-color: var(--primary-color);
+    font-weight: 600;
 }
 
-/* Inputs de Texto Clássicos */
+/* Inputs de Texto */
 .date-picker-wrapper label, .input-group label {
     display: block;
     margin-bottom: 8px;
@@ -117,54 +143,49 @@ body {
 
 .date-picker-wrapper input, .input-group input, .input-group textarea {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: 1px solid #E2E8F0;
-    border-radius: 6px;
+    border-radius: 8px;
     font-family: inherit;
     font-size: 0.95rem;
     outline: none;
+    background-color: #FCFBFA;
+    transition: border-color 0.2s;
 }
 
 .date-picker-wrapper input:focus, .input-group input:focus, .input-group textarea:focus {
-    border-color: var(--accent-color);
+    border-color: var(--primary-color);
 }
 
-.optional { color: var(--text-muted); font-size: 0.8rem; }
-.privacy-note { display: block; margin-top: 6px; color: #2D3748; font-size: 0.8rem; }
+.optional { color: #A0AEC0; font-size: 0.8rem; }
+.privacy-note { display: block; margin-top: 8px; color: #718096; font-size: 0.8rem; }
 
-/* Botão do WhatsApp */
+/* Botão Confirmar */
 .btn-submit {
     width: 100%;
-    background-color: #25D366;
-    color: #FFFFFF;
-    border: none;
-    padding: 16px;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 18px;
     font-size: 1rem;
     font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
 }
 
 .btn-submit:hover {
-    background-color: #1BD741;
+    background-color: #42121E;
+    transform: translateY(-1px);
 }
 
-/* Responsividade para Celulares */
+/* Responsividade Perfeita: Celulares */
 @media (max-width: 500px) {
-    .area-grid { grid-template-columns: 1fr; }
+    body { padding: 15px 10px; }
+    .booking-container { padding: 25px 15px; border-radius: 12px; }
     .time-grid { grid-template-columns: repeat(2, 1fr); }
-    .booking-container { padding: 20px; }
-}
-
-.logo-container {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.lawyer-logo {
-    max-width: 200px;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+    .booking-header h2 { font-size: 1.4rem; }
+    .lawyer-logo { max-width: 220px; }
 }
