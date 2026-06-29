@@ -1,3 +1,8 @@
+// Adicione isso no início da sua função enviarParaWhatsApp()
+if (!nome || !areaSelecionada || !horarioSelecionado || !dataInput) {
+    alert("Por favor, preencha todos os campos obrigatórios antes de confirmar.");
+    return; // Para a execução se algo estiver faltando
+}
 function enviarParaWhatsApp() {
     const nome = document.getElementById('nome').value;
     const assunto = document.getElementById('assunto').value || "Não informado";
