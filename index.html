@@ -39,10 +39,20 @@
             </section>
 
             <section class="form-section">
-                <h3>2. Escolha o Horário Disponível</h3>
+    <h3>2. Escolha o Horário Disponível</h3>
+    
+    <div class="date-picker-wrapper">
+        <label>Selecione a Data:</label>
+        <div style="display: flex; gap: 5px; align-items: center;">
+            <input type="number" id="dia" placeholder="dd" min="1" max="31" style="width: 60px;">
+            <span>/</span>
+            <input type="number" id="mes" placeholder="mm" min="1" max="12" style="width: 60px;">
+            <span>/</span>
+            <span id="ano-atual" style="font-weight: bold;"></span> <!-- O ano aparecerá aqui -->
+        </div>
+    </div>
+    <!-- (Mantenha o resto do seu grid de horários aqui embaixo) -->
                 
-                <div class="date-picker-wrapper">
-                    <label for="data-consulta">Selecione o Dia:</label>
                     <!-- Linha corrigida sem o "min" fixo -->
                     <input type="date" id="data-consulta" required>
                 </div>
