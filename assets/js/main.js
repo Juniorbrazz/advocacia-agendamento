@@ -11,30 +11,36 @@ document.addEventListener("DOMContentLoaded", function() {
     const inputMes = document.getElementById('mes');
     const form = document.getElementById('form-agendamento');
 
-    // Monitora a digitação da data para atualizar os horários na tela
+    // Monitora a digitação da data para atualizar os horários na tela dinamicamente
     if (inputDia && inputMes) {
         inputDia.addEventListener('input', atualizarHorariosDisponiveis);
         inputMes.addEventListener('input', atualizarHorariosDisponiveis);
     }
 
-    // Gerencia o envio do formulário diretamente por aqui
+    // Gerencia o envio do formulário
     if (form) {
         form.addEventListener('submit', function (event) {
             event.preventDefault(); // Impede a página de recarregar
-            processarAgendamento();  // Trava o horário localmente e dispara o WhatsApp
+            processarAgendamento();  // Trava o horário selecionado e abre o WhatsApp
         });
     }
 });
 
-// Função que monta a chave da data de forma padronizada (ex: "05/07/2026")
+// Função que monta a chave da data (ex: "05/07/2026") com preenchimento de zeros à esquerda
 function obterChaveData() {
-    const dia = document.getElementById('dia').value.padStart(2, '0');
-    const mes = document.getElementById('mes').value.padStart(2, '0');
-    const ano = document.getElementById('ano-atual').textContent;
+    const diaElement = document.getElementById('dia');
+    const mesElement = document.getElementById('mes');
+    const anoElement = document.getElementById('ano-atual');
+
+    if (!diaElement || !mesElement || !anoElement) return "";
+
+    const dia = diaElement.value.padStart(2, '0');
+    const mes = mesElement.value.padStart(2, '0');
+    const ano = anoElement.textContent;
     return `${dia}/${mes}/${ano}`;
 }
 
-// Função que varre os botões e desativa os horários já ocupados
+// Função que varre os botões e desativa os horários já ocupados localmente
 function atualizarHorariosDisponiveis() {
     const dia = document.getElementById('dia').value;
     const mes = document.getElementById('mes').value;
@@ -53,7 +59,7 @@ function atualizarHorariosDisponiveis() {
         if (horariosBloqueados.includes(horaValue)) {
             slot.classList.add('disabled');
             inputRadio.disabled = true;
-            inputRadio.checked = false; // Desmarca se o usuário já tinha clicado nele
+            inputRadio.checked = false; // Desmarca caso o usuário mude a data depois de clicar
         } else {
             slot.classList.remove('disabled');
             inputRadio.disabled = false;
@@ -61,7 +67,7 @@ function atualizarHorariosDisponiveis() {
     });
 }
 
-// Função intermediária: salva a escolha do cliente antes de enviar
+// Função intermediária: salva a escolha do cliente na memória antes de redirecionar
 function processarAgendamento() {
     const dia = document.getElementById('dia').value;
     const mes = document.getElementById('mes').value;
@@ -75,27 +81,27 @@ function processarAgendamento() {
     const dataSelecionada = obterChaveData();
     const horarioSelecionado = radioSelecionado.value;
 
-    // Salva na memória do navegador para ficar indisponível
     const agendamentosOcupados = JSON.parse(localStorage.getItem('agendamentos_ocupados')) || {};
     if (!agendamentosOcupados[dataSelecionada]) {
         agendamentosOcupados[dataSelecionada] = [];
     }
     
+    // Evita duplicados na lista interna
     if (!agendamentosOcupados[dataSelecionada].includes(horarioSelecionado)) {
         agendamentosOcupados[dataSelecionada].push(horarioSelecionado);
     }
     
     localStorage.setItem('agendamentos_ocupados', JSON.stringify(agendamentosOcupados));
 
-    // Atualiza visualmente a tela
+    // Atualiza o layout da tela instantaneamente
     atualizarHorariosDisponiveis();
 
-    // Dispara a mensagem para o WhatsApp
+    // Dispara o envio oficial para o WhatsApp
     enviarParaWhatsApp();
 }
 
 
-// === SUA FUNÇÃO ORIGINAL DO WHATSAPP (ORGANIZADA) ===
+// === FUNÇÃO DE ENVIO PARA O WHATSAPP ===
 
 function enviarParaWhatsApp() {
     const nome = document.getElementById('nome').value;
