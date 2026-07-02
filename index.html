@@ -29,7 +29,7 @@
             <p>Selecione a área de interesse, escolha o melhor horário e confirme pelo WhatsApp.</p>
         </header>
 
-        <form id="form-agendamento" onsubmit="event.preventDefault(); processarAgendamento();">
+        <form id="form-agendamento">
             
             <section class="form-section">
                 <h3>1. Selecione a Área de Interesse</h3>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <!-- Grade de horários atualizada conforme solicitado -->
+                <!-- Grade de horários correta e atualizada -->
                 <div class="time-grid" id="time-grid" style="margin-top: 20px;">
                     <label class="time-slot"><input type="radio" name="horario" value="10:00" required><span>10:00</span></label>
                     <label class="time-slot"><input type="radio" name="horario" value="11:00"><span>11:00</span></label>
@@ -102,72 +102,7 @@
 
     </main>
 
-    <script>
-        // Define o ano atual dinamicamente caso não esteja fixado
-        document.getElementById('ano-atual').textContent = new Date().getFullYear();
-
-        const inputDia = document.getElementById('dia');
-        const inputMes = document.getElementById('mes');
-
-        // Escuta as mudanças de data para atualizar os horários visíveis
-        inputDia.addEventListener('input', atualizarHorariosDisponiveis);
-        inputMes.addEventListener('input', atualizarHorariosDisponiveis);
-
-        function obterChaveData() {
-            const dia = inputDia.value.padStart(2, '0');
-            const mes = inputMes.value.padStart(2, '0');
-            const ano = document.getElementById('ano-atual').textContent;
-            return `${dia}/${mes}/${ano}`;
-        }
-
-        function atualizarHorariosDisponiveis() {
-            if (!inputDia.value || !inputMes.value) return;
-
-            const dataSelecionada = obterChaveData();
-            // Puxa do local storage os horários já agendados para este dia
-            const agendamentosOcupados = JSON.parse(localStorage.getItem('agendamentos_ocupados')) || {};
-            const horariosBloqueados = agendamentosOcupados[dataSelecionada] || [];
-
-            const slots = document.querySelectorAll('.time-slot');
-
-            slots.forEach(slot => {
-                const inputRadio = slot.querySelector('input');
-                const horaValue = inputRadio.value;
-
-                if (horariosBloqueados.includes(horaValue)) {
-                    slot.classList.add('disabled');
-                    inputRadio.disabled = true;
-                    inputRadio.checked = false; // Desmarca se já estava selecionado
-                } else {
-                    slot.classList.remove('disabled');
-                    inputRadio.disabled = false;
-                }
-            });
-        }
-
-        function processarAgendamento() {
-            const dataSelecionada = obterChaveData();
-            const horarioSelecionado = document.querySelector('input[name="horario"]:checked').value;
-
-            // Salva na memória interna para ficar bloqueado localmente
-            const agendamentosOcupados = JSON.parse(localStorage.getItem('agendamentos_ocupados')) || {};
-            if (!agendamentosOcupados[dataSelecionada]) {
-                agendamentosOcupados[dataSelecionada] = [];
-            }
-            agendamentosOcupados[dataSelecionada].push(horarioSelecionado);
-            localStorage.setItem('agendamentos_ocupados', JSON.stringify(agendamentosOcupados));
-
-            // text em tela atualizado imediatamente
-            atualizarHorariosDisponiveis();
-
-            // Chama a função existente no seu arquivo main.js para disparar o WhatsApp
-            if (typeof enviarParaWhatsApp === 'function') {
-                enviarParaWhatsApp();
-            } else {
-                alert('Agendamento processado! (Função de disparo do WhatsApp não localizada).');
-            }
-        }
-    </script>
+    <!-- Executa puramente o seu arquivo de lógica externo -->
     <script src="assets/js/main.js"></script>
 </body>
 </html>
