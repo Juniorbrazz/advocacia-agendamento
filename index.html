@@ -6,6 +6,17 @@
     <title>Agendamento de Consulta | Dra. Taiane Freitas</title>
     <link rel="stylesheet" href="assets/css/estilo.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilo para deixar o horário indisponível visualmente apagado e sem clique */
+        .time-slot.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+            background-color: #E2E8F0 !important;
+            border-color: #CBD5E1 !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,7 +29,7 @@
             <p>Selecione a área de interesse, escolha o melhor horário e confirme pelo WhatsApp.</p>
         </header>
 
-        <form id="form-agendamento" onsubmit="event.preventDefault(); enviarParaWhatsApp();">
+        <form id="form-agendamento" onsubmit="event.preventDefault(); processarAgendamento();">
             
             <section class="form-section">
                 <h3>1. Selecione a Área de Interesse</h3>
@@ -48,20 +59,18 @@
                         <span>/</span>
                         <input type="number" id="mes" placeholder="mm" min="1" max="12" required style="padding: 10px; width: 60px; border: 1px solid #E2E8F0; border-radius: 8px;">
                         <span>/</span>
-                        <span id="ano-atual" style="font-weight: bold; font-size: 1.1rem; color: #333;"></span>
+                        <span id="ano-atual" style="font-weight: bold; font-size: 1.1rem; color: #333;">2026</span>
                     </div>
                 </div>
 
-                <div class="time-grid" style="margin-top: 20px;">
-                    <label class="time-slot"><input type="radio" name="horario" value="10:00" required><span>09:00</span></label>
-                    <label class="time-slot"><input type="radio" name="horario" value="11:00"><span>10:00</span></label>
-                    <label class="time-slot"><input type="radio" name="horario" value="13:00"><span>17:00</span></label>
-                    <label class="time-slot"><input type="radio" name="horario" value="14:00"><span>11:00</span></label>
-                    <label class="time-slot"><input type="radio" name="horario" value="15:00"><span>14:00</span></label>
-                    <label class="time-slot"><input type="radio" name="horario" value="16:00"><span>15:00</span></label>
-                    <label class="time-slot"><input type="radio" name="horario" value="17:00"><span>16:00</span></label>
-                    <label class="time-slot"><input type="radio" name="horario" value="18:00"><span>17:00</span></label>
-                    
+                <div class="time-grid" id="time-grid" style="margin-top: 20px;">
+                    <label class="time-slot"><input type="radio" name="horario" value="09:00" required><span>09:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="10:00"><span>10:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="11:00"><span>11:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="14:00"><span>14:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="15:00"><span>15:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="16:00"><span>16:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="17:00"><span>17:00</span></label>
                 </div>
             </section>
 
@@ -91,6 +100,72 @@
 
     </main>
 
+    <script>
+        // Define o ano atual dinamicamente caso não esteja fixado
+        document.getElementById('ano-atual').textContent = new Date().getFullYear();
+
+        const inputDia = document.getElementById('dia');
+        const inputMes = document.getElementById('mes');
+
+        // Escuta as mudanças de data para atualizar os horários visíveis
+        inputDia.addEventListener('input', atualizarHorariosDisponiveis);
+        inputMes.addEventListener('input', atualizarHorariosDisponiveis);
+
+        function obterChaveData() {
+            const dia = inputDia.value.padStart(2, '0');
+            const mes = inputMes.value.padStart(2, '0');
+            const ano = document.getElementById('ano-atual').textContent;
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        function atualizarHorariosDisponiveis() {
+            if (!inputDia.value || !inputMes.value) return;
+
+            const dataSelecionada = obterChaveData();
+            // Puxa do local storage os horários já agendados para este dia
+            const agendamentosOcupados = JSON.parse(localStorage.getItem('agendamentos_ocupados')) || {};
+            const horariosBloqueados = agendamentosOcupados[dataSelecionada] || [];
+
+            const slots = document.querySelectorAll('.time-slot');
+
+            slots.forEach(slot => {
+                const inputRadio = slot.querySelector('input');
+                const horaValue = inputRadio.value;
+
+                if (horariosBloqueados.includes(horaValue)) {
+                    slot.classList.add('disabled');
+                    inputRadio.disabled = true;
+                    inputRadio.checked = false; // Desmarca se já estava selecionado
+                } else {
+                    slot.classList.remove('disabled');
+                    inputRadio.disabled = false;
+                }
+            });
+        }
+
+        function processarAgendamento() {
+            const dataSelecionada = obterChaveData();
+            const horarioSelecionado = document.querySelector('input[name="horario"]:checked').value;
+
+            // Salva na memória interna para ficar bloqueado localmente
+            const agendamentosOcupados = JSON.parse(localStorage.getItem('agendamentos_ocupados')) || {};
+            if (!agendamentosOcupados[dataSelecionada]) {
+                agendamentosOcupados[dataSelecionada] = [];
+            }
+            agendamentosOcupados[dataSelecionada].push(horarioSelecionado);
+            localStorage.setItem('agendamentos_ocupados', JSON.stringify(agendamentosOcupados));
+
+            // Atualiza a tela imediatamente
+            atualizarHorariosDisponiveis();
+
+            // Chama a função existente no seu arquivo main.js para disparar o WhatsApp
+            if (typeof enviarParaWhatsApp === 'function') {
+                enviarParaWhatsApp();
+            } else {
+                alert('Agendamento processado! (Função de disparo do WhatsApp não localizada).');
+            }
+        }
+    </script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>
