@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* Estilo para deixar o horário indisponível visualmente apagado e sem clique */
+        /* Garante visualmente o bloqueio dos horários ocupados */
         .time-slot.disabled {
             opacity: 0.4;
             cursor: not-allowed;
@@ -62,15 +62,16 @@
                         <span id="ano-atual" style="font-weight: bold; font-size: 1.1rem; color: #333;">2026</span>
                     </div>
                 </div>
+
+                <!-- Grade corrigida apenas com o seu novo horário de atendimento -->
                 <div class="time-grid" id="time-grid" style="margin-top: 20px;">
-    <label class="time-slot"><input type="radio" name="horario" value="11:00" required><span>11:00</span></label>
-    <label class="time-slot"><input type="radio" name="horario" value="12:00"><span>12:00</span></label>
-    <label class="time-slot"><input type="radio" name="horario" value="13:00"><span>13:00</span></label>
-    <label class="time-slot"><input type="radio" name="horario" value="14:00"><span>14:00</span></label>
-    <label class="time-slot"><input type="radio" name="horario" value="15:00"><span>15:00</span></label>
-    <label class="time-slot"><input type="radio" name="horario" value="16:00"><span>16:00</span></label>
-</div>
-              
+                    <label class="time-slot"><input type="radio" name="horario" value="11:00" required><span>11:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="12:00"><span>12:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="13:00"><span>13:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="14:00"><span>14:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="15:00"><span>15:00</span></label>
+                    <label class="time-slot"><input type="radio" name="horario" value="16:00"><span>16:00</span></label>
+                </div>
             </section>
 
             <section class="form-section">
@@ -99,6 +100,7 @@
 
     </main>
 
-    <script src="assets/js/main.js?v=10"></script>
+    <!-- v=999 força o GitHub Pages a ignorar o cache antigo imediatamente -->
+    <script src="assets/js/main.js?v=999"></script>
 </body>
 </html>
