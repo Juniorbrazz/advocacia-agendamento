@@ -100,9 +100,7 @@ function processarAgendamento() {
     enviarParaWhatsApp();
 }
 
-
 // === FUNÇÃO DE ENVIO PARA O WHATSAPP ===
-
 function enviarParaWhatsApp() {
     const nome = document.getElementById('nome').value;
     const dia = document.getElementById('dia').value.padStart(2, '0');
@@ -127,7 +125,7 @@ function enviarParaWhatsApp() {
                           `• *Nome do Cliente:* ${nome}%0A` +
                           `• *Área de Atendimento:* ${area}%0A` +
                           `• *Data:* ${dataFormatada}%0A` +
-                          `• *Horário:* ${horario}%0A` +
+                          `• *Horário:* ${horario}h%0A` +
                           `• *Assunto desejado:* ${assunto}`;
     
     window.open(`https://wa.me/${numeroEscritorio}?text=${textoMensagem}`, '_blank');
