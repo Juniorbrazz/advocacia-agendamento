@@ -1,132 +1,27 @@
-// === CONTROLE DO FORMULÁRIO E BLOQUEIO DE HORÁRIOS ===
+// ... dentro de atualizarHorariosDisponiveis, após obter horariosBloqueados:
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Insere o ano atual automaticamente na interface
-    const elementoAno = document.getElementById('ano-atual');
-    if (elementoAno) {
-        elementoAno.textContent = new Date().getFullYear();
-    }
+const agora = new Date();
+const diaAtual = agora.getDate();
+const mesAtual = agora.getMonth() + 1; // O mês no JS começa em 0
+const horaAtual = agora.getHours();
 
-    const inputDia = document.getElementById('dia');
-    const inputMes = document.getElementById('mes');
-    const form = document.getElementById('form-agendamento');
+// Verifica se a data selecionada é hoje
+const isHoje = (parseInt(dia) === diaAtual && parseInt(mes) === mesAtual);
 
-    // Monitora a digitação da data para atualizar os horários na tela dinamicamente
-    if (inputDia && inputMes) {
-        inputDia.addEventListener('input', atualizarHorariosDisponiveis);
-        inputMes.addEventListener('input', atualizarHorariosDisponiveis);
-    }
+slots.forEach(slot => {
+    const inputRadio = slot.querySelector('input');
+    const horaValue = parseInt(inputRadio.value); // Converte "11:00" para 11
 
-    // Gerencia o envio do formulário
-    if (form) {
-        form.addEventListener('submit', function (event) {
-            event.preventDefault(); // Impede a página de recarregar
-            processarAgendamento();  // Trava o horário selecionado e abre o WhatsApp
-        });
+    // Regra 1: Bloqueia se já estiver no localStorage
+    // Regra 2: Bloqueia se for hoje E o horário já tiver passado
+    const horarioPassado = (isHoje && horaValue <= horaAtual);
+
+    if (horariosBloqueados.includes(inputRadio.value) || horarioPassado) {
+        slot.classList.add('disabled');
+        inputRadio.disabled = true;
+        inputRadio.checked = false;
+    } else {
+        slot.classList.remove('disabled');
+        inputRadio.disabled = false;
     }
 });
-
-// Função que monta a chave da data (ex: "05/07/2026") com preenchimento de zeros à esquerda
-function obterChaveData() {
-    const diaElement = document.getElementById('dia');
-    const mesElement = document.getElementById('mes');
-    const anoElement = document.getElementById('ano-atual');
-
-    if (!diaElement || !mesElement || !anoElement) return "";
-
-    const dia = diaElement.value.padStart(2, '0');
-    const mes = mesElement.value.padStart(2, '0');
-    const ano = anoElement.textContent;
-    return `${dia}/${mes}/${ano}`;
-}
-
-// Função que varre os botões e desativa os horários já ocupados localmente
-function atualizarHorariosDisponiveis() {
-    const dia = document.getElementById('dia').value;
-    const mes = document.getElementById('mes').value;
-    if (!dia || !mes) return;
-
-    const dataSelecionada = obterChaveData();
-    const agendamentosOcupados = JSON.parse(localStorage.getItem('agendamentos_ocupados')) || {};
-    const horariosBloqueados = agendamentosOcupados[dataSelecionada] || [];
-
-    const slots = document.querySelectorAll('.time-slot');
-
-    slots.forEach(slot => {
-        const inputRadio = slot.querySelector('input');
-        const horaValue = inputRadio.value;
-
-        if (horariosBloqueados.includes(horaValue)) {
-            slot.classList.add('disabled');
-            inputRadio.disabled = true;
-            inputRadio.checked = false; // Desmarca caso o usuário mude a data depois de clicar
-        } else {
-            slot.classList.remove('disabled');
-            inputRadio.disabled = false;
-        }
-    });
-}
-
-// Função intermediária: salva a escolha do cliente na memória antes de redirecionar
-function processarAgendamento() {
-    const dia = document.getElementById('dia').value;
-    const mes = document.getElementById('mes').value;
-    const radioSelecionado = document.querySelector('input[name="horario"]:checked');
-
-    if (!dia || !mes || !radioSelecionado) {
-        alert("Por favor, preencha a data e escolha um horário disponível.");
-        return;
-    }
-
-    const dataSelecionada = obterChaveData();
-    const horarioSelecionado = radioSelecionado.value;
-
-    const agendamentosOcupados = JSON.parse(localStorage.getItem('agendamentos_ocupados')) || {};
-    if (!agendamentosOcupados[dataSelecionada]) {
-        agendamentosOcupados[dataSelecionada] = [];
-    }
-    
-    // Evita duplicados na lista interna
-    if (!agendamentosOcupados[dataSelecionada].includes(horarioSelecionado)) {
-        agendamentosOcupados[dataSelecionada].push(horarioSelecionado);
-    }
-    
-    localStorage.setItem('agendamentos_ocupados', JSON.stringify(agendamentosOcupados));
-
-    // CORREÇÃO: Dispara primeiro o envio para o WhatsApp antes de resetar o botão na interface
-    enviarParaWhatsApp();
-
-    // Só agora atualiza o layout da tela desativando o horário
-    atualizarHorariosDisponiveis();
-}
-
-// === FUNÇÃO DE ENVIO PARA O WHATSAPP ===
-function enviarParaWhatsApp() {
-    const nome = document.getElementById('nome').value;
-    const dia = document.getElementById('dia').value.padStart(2, '0');
-    const mes = document.getElementById('mes').value.padStart(2, '0');
-    const ano = document.getElementById('ano-atual').textContent;
-    const assunto = document.getElementById('assunto').value || "Não informado";
-    
-    const areaSelecionada = document.querySelector('input[name="area"]:checked');
-    const horarioSelecionado = document.querySelector('input[name="horario"]:checked');
-
-    if (!nome || !areaSelecionada || !horarioSelecionado || !dia || !mes) {
-        alert("Por favor, preencha todos os campos obrigatórios.");
-        return;
-    }
-
-    const area = areaSelecionada.value;
-    const horario = horarioSelecionado.value;
-    const dataFormatada = `${dia}/${mes}/${ano}`;
-    const numeroEscritorio = "5521964432126"; 
-
-    const textoMensagem = `Olá, Dra. Taiane Freitas! Gostaria de confirmar meu agendamento de consulta presencial.%0A%0A` +
-                          `• *Nome do Cliente:* ${nome}%0A` +
-                          `• *Área de Atendimento:* ${area}%0A` +
-                          `• *Data:* ${dataFormatada}%0A` +
-                          `• *Horário:* ${horario}h%0A` +
-                          `• *Assunto desejado:* ${assunto}`;
-    
-    window.open(`https://wa.me/${numeroEscritorio}?text=${textoMensagem}`, '_blank');
-}
