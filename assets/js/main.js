@@ -93,11 +93,11 @@ function processarAgendamento() {
     
     localStorage.setItem('agendamentos_ocupados', JSON.stringify(agendamentosOcupados));
 
-    // Atualiza o layout da tela instantaneamente
-    atualizarHorariosDisponiveis();
-
-    // Dispara o envio oficial para o WhatsApp
+    // CORREÇÃO: Dispara primeiro o envio para o WhatsApp antes de resetar o botão na interface
     enviarParaWhatsApp();
+
+    // Só agora atualiza o layout da tela desativando o horário
+    atualizarHorariosDisponiveis();
 }
 
 // === FUNÇÃO DE ENVIO PARA O WHATSAPP ===
