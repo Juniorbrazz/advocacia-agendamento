@@ -2,20 +2,21 @@
 :root {
     /* --- CONFIGURAÇÃO ANTIGA (Bordô) --- */
     /*
-    --primary-color: #2D0B14;    /* O vermelho-escuro/bordô exato da logo */
-    --accent-color: #E2C9A1;     /* O dourado elegante das letras */
-    --bg-color: #2D0B14;         /* Fundo da página na cor da marca para envelopar o site */
-    --card-bg: #FFFFFF;          /* Bloco do formulário em branco para excelente leitura */
-    --text-main: #2D0B14;        /* Texto principal no tom da marca */
-    --text-muted: #70585E;       /* Texto secundário suave */
+    --primary-color: #2D0B14;    /* O vermelho-escuro/bordô exato da logo 
+    --accent-color: #E2C9A1;     /* O dourado elegante das letras 
+    --bg-color: #2D0B14;         /* Fundo da página na cor da marca para envelopar o site 
+    --card-bg: #FFFFFF;          /* Bloco do formulário em branco para excelente leitura 
+    --text-main: #2D0B14;        /* Texto principal no tom da marca 
+    --text-muted: #70585E;       /* Texto secundário suave 
     */
+
     /* --- CONFIGURAÇÃO NOVA (Preto e Dourado) --- */
     --primary-color: #000000;    /* Preto absoluto */
     --accent-color: #C5A059;     /* Dourado da nova marca */
-    --bg-color: #000000;        /* Fundo do site em preto */
-    --card-bg: #FFFFFF;         /* Mantido branco para contraste */
-    --text-main: #000000;       /* Texto principal em preto */
-    --text-muted: #4A4A4A;      /* Cinza escuro para textos secundários */
+    --bg-color: #000000;         /* Fundo do site em preto */
+    --card-bg: #FFFFFF;          /* Mantido branco para contraste */
+    --text-main: #000000;        /* Texto principal em preto */
+    --text-muted: #4A4A4A;       /* Cinza escuro para textos secundários */
 }
 
 * {
