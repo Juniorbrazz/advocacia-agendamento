@@ -51,17 +51,15 @@
 
             <section class="form-section">
                 <h3>2. Escolha o Horário Disponível</h3>
-                
-                <div class="date-picker-wrapper">
-                    <label>Data da Consulta (dd/mm/aaaa):</label>
-                    <div style="display: flex; gap: 5px; align-items: center; margin-top: 10px;">
-                        <input type="number" id="dia" placeholder="dd" min="1" max="31" required style="padding: 10px; width: 60px; border: 1px solid #E2E8F0; border-radius: 8px;">
-                        <span>/</span>
-                        <input type="number" id="mes" placeholder="mm" min="1" max="12" required style="padding: 10px; width: 60px; border: 1px solid #E2E8F0; border-radius: 8px;">
-                        <span>/</span>
-                        <span id="ano-atual" style="font-weight: bold; font-size: 1.1rem; color: #333;">2026</span>
-                    </div>
-                </div>
+    
+                 <div class="date-picker-wrapper">
+                      <label for="data-consulta">Data da Consulta:</label>
+                      <input type="date" id="data-consulta" required style="padding: 10px; width: 100%; border: 1px solid #E2E8F0; border-radius: 8px;">
+                 </div>
+    
+                 <div class="time-grid" id="time-grid" style="margin-top: 20px;">
+                      </div>
+            </section>
                 
                 <div class="time-grid" id="time-grid" style="margin-top: 20px;">
                     <label class="time-slot"><input type="radio" name="horario" value="11:00"><span>11:00</span></label>
