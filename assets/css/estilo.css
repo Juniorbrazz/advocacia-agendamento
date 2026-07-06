@@ -211,3 +211,11 @@ footer {
     color: #718096;
     font-size: 0.85rem;
 }
+
+/* Forçar o calendário a aparecer com o visual correto */
+.flatpickr-calendar {
+    background: #fff !important;
+    border: 1px solid #CBD5E1 !important;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1) !important;
+    border-radius: 8px !important;
+}
